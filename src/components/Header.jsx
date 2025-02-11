@@ -7,16 +7,26 @@ export default function Header() {
     const {CurrentUser, setUser } = useContext(UserContext);
     console.log(CurrentUser)
     const handleCheckChange = () => {
-      if(theme === 'dark') {
-        setTheme('light');
-      } else {
-        setTheme('dark');
-      }
-    }
 
-    const handleButtonClick = () => {
-      console.log("CLICK!");
-    }
+        
+        setTheme((prevTheme) => {
+            const newTheme = prevTheme === "light" ? "dark" : "light";
+            localStorage.setItem("theme", newTheme);
+            return newTheme;
+            });
+
+
+     }
+     const handleButtonClick = () => {
+        //clear theme
+        localStorage.removeItem("theme");
+        setTheme((prevTheme) => {
+            const newTheme = prevTheme === "light" ? "dark" : "light";
+            localStorage.setItem("theme", newTheme);
+            return newTheme;
+            });//there might be a better way of doing this
+        console.log("CLICK!");
+      }
 
     return (
         <header className={theme}>
